@@ -1,11 +1,11 @@
 #include "GeneratorFactory.hpp"
 
-#include "HeightFieldGenerator.hpp"
+#include "HeightField.hpp"
 
 namespace Tungsten {
 
-DEFINE_STRINGABLE_ENUM(PrimitiveFactory, "primitive", ({
-    {"heightfield", std::make_shared<HeightFieldGenerator>},
+DEFINE_STRINGABLE_ENUM(GeneratorFactory, "generator", ({
+    {"heightfield", std::make_shared<HeightField>},
 }))
 
 }

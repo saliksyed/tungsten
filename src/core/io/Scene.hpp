@@ -19,6 +19,8 @@
 
 #include "primitives/Primitive.hpp"
 
+#include "generators/Generator.hpp"
+
 #include "renderer/RendererSettings.hpp"
 #include "renderer/TraceableScene.hpp"
 
