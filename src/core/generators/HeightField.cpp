@@ -54,7 +54,6 @@ bool HeightField::has_next_bsdf(){
 }
 
 bool HeightField::has_next_primitive(){
-    std::cout<<"Sending primitive: " << _numPrimitivesSent <<std::endl;
     return _numPrimitivesSent < _primitiveCount;
 }
 std::shared_ptr<Bsdf>& HeightField::next_bsdf(const Scene& scene){
@@ -68,10 +67,7 @@ std::shared_ptr<Primitive>& HeightField::next_primitive(const Scene& scene){
     Vec3f pos = Vec3f(uv.x(), 0.0f, uv.y());
     Vec3f scale = Vec3f(0.1f, 0.1f, 0.1f);
     Mat4f rot = Mat4f::rotXYZ(Vec3f(0.0f, 0.0f, 0.0f));
-    std::ostringstream name;
-    name << "c" << _numPrimitivesSent;
-    std::shared_ptr<Primitive> next(new Cube(pos, scale, rot, name.str(), _bsdf));
-    return next;
+    return *new std::shared_ptr<Primitive>(new Cube(_transform*pos, scale, rot, "", _bsdf));
 }
 
 }

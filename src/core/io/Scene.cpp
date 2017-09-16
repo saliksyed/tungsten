@@ -237,7 +237,7 @@ void Scene::fromJson(JsonPtr value, const Scene &scene)
     if (auto primitives = value["primitives"])
         for (unsigned i = 0; i < primitives.size(); ++i)
             _primitives.emplace_back(instantiate<Primitive>(primitives[i], *this));
-    if (auto generators = value["generators"])
+    if (auto generators = value["generators"]) {
         for (unsigned i = 0; i < generators.size(); ++i) {
             std::shared_ptr<Generator> curr = instantiate<Generator>(generators[i], *this);
             while(curr->has_next_bsdf())
@@ -245,6 +245,7 @@ void Scene::fromJson(JsonPtr value, const Scene &scene)
             while(curr->has_next_primitive())
                 _primitives.emplace_back(curr->next_primitive(*this));
         }
+    }
 
     if (auto camera     = value["camera"    ]) _camera     = instantiate<Camera>(camera, *this);
     if (auto integrator = value["integrator"]) _integrator = instantiate<Integrator>(integrator, *this);
