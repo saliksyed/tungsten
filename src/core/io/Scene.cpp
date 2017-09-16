@@ -12,6 +12,8 @@
 
 #include "primitives/PrimitiveFactory.hpp"
 
+#include "generators/GeneratorFactory.hpp"
+
 #include "textures/TextureFactory.hpp"
 #include "textures/BitmapTexture.hpp"
 #include "textures/IesTexture.hpp"
@@ -235,6 +237,13 @@ void Scene::fromJson(JsonPtr value, const Scene &scene)
     if (auto primitives = value["primitives"])
         for (unsigned i = 0; i < primitives.size(); ++i)
             _primitives.emplace_back(instantiate<Primitive>(primitives[i], *this));
+    if (auto generators = value["generators"])
+        for (unsigned i = 0; i < generators.size(); ++i)
+            std::vector<std::shared_ptr<Generator>> curr = instantiate<Generator>(generators[i], *this);
+            while(curr.has_next_bsdf())
+                _bsdfs.emplace_back(instantiate<Bsdf>(curr.next_bsdf(), *this));
+            while(curr.has_next_primitive())
+                _primitives.emplace_back(instantiate<Primitive>(curr.next_primitive(), *this));
 
     if (auto camera     = value["camera"    ]) _camera     = instantiate<Camera>(camera, *this);
     if (auto integrator = value["integrator"]) _integrator = instantiate<Integrator>(integrator, *this);

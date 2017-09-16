@@ -195,7 +195,7 @@
                     -163.36
                 ]
             },
-            "type": "cube",
+            "type": "heightmap",
             "bsdf": "shortBox"
         },
         {
@@ -217,7 +217,7 @@
                     160.812
                 ]
             },
-            "type": "cube",
+            "type": "heightmap",
             "bsdf": "tallBox"
         },
         {
