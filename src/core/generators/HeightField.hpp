@@ -5,13 +5,25 @@
 
 #include "textures/Texture.hpp"
 
+#include "bsdfs/Bsdf.hpp"
+
+#include "sampling/UniformSampler.hpp"
+
 namespace Tungsten {
 
 class HeightField : public Generator
 {
 protected:
 	static std::shared_ptr<Texture> _defaultHeightMap;
+	static std::shared_ptr<Bsdf> _defaultBsdf;
+
 	std::shared_ptr<Texture> _heightMap;
+	std::shared_ptr<Bsdf> _bsdf;
+	
+	UniformSampler _sampler;
+	int _primitiveCount;
+	int _numPrimitivesSent;
+	bool _bsdfSent;
 public:
     virtual ~HeightField() {}
     HeightField();

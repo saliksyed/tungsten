@@ -17,11 +17,12 @@ void Generator::fromJson(JsonPtr value, const Scene &scene)
 {
     JsonSerializable::fromJson(value, scene);
 
+    value.getField("transform", _transform);
 }
 
 rapidjson::Value Generator::toJson(Allocator &allocator) const
 {
-    JsonObject result{JsonSerializable::toJson(allocator), allocator};
+    JsonObject result{JsonSerializable::toJson(allocator), allocator, "transform", _transform};
 
     return result;
 }

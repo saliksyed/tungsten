@@ -1,5 +1,29 @@
 {
     "media": [],
+    "generators": [
+        {
+            "name": "test", 
+            "type": "heightfield",
+            "heightMap": "TungstenRender.png",
+            "primitiveCount": 50,
+            "transform": {
+                "position": [
+                    0,
+                    2,
+                    0
+                ],
+                "scale": [
+                    2,
+                    4,
+                    2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    -180
+                ]
+            }
+    }],
     "bsdfs": [
         {
             "name": "leftWall",
@@ -195,7 +219,7 @@
                     -163.36
                 ]
             },
-            "type": "heightmap",
+            "type": "cube",
             "bsdf": "shortBox"
         },
         {
@@ -217,7 +241,7 @@
                     160.812
                 ]
             },
-            "type": "heightmap",
+            "type": "cube",
             "bsdf": "tallBox"
         },
         {
