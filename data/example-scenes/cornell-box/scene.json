@@ -4,18 +4,18 @@
         {
             "name": "test", 
             "type": "heightfield",
-            "heightMap": "TungstenRender.png",
-            "primitiveCount": 100,
+            "heightMap": "heightmap4.png",
+            "primitiveCount": 200000,
             "transform": {
                 "position": [
-                    -1,
+                    -2.5,
                     0,
-                    -1
+                    -2.5
                 ],
                 "scale": [
-                    2,
+                    5,
                     1,
-                    2
+                    5
                 ],
                 "rotation": [
                     0,
@@ -26,52 +26,7 @@
     }],
     "bsdfs": [
         {
-            "name": "leftWall",
-            "albedo": [
-                0.63,
-                0.065,
-                0.05
-            ],
-            "type": "lambert"
-        },
-        {
-            "name": "rightWall",
-            "albedo": [
-                0.14,
-                0.45,
-                0.091
-            ],
-            "type": "lambert"
-        },
-        {
             "name": "floor",
-            "albedo": [
-                0.725,
-                0.71,
-                0.68
-            ],
-            "type": "lambert"
-        },
-        {
-            "name": "ceiling",
-            "albedo": [
-                0.725,
-                0.71,
-                0.68
-            ],
-            "type": "lambert"
-        },
-        {
-            "name": "backWall",
-            "albedo": [
-                0.725,
-                0.71,
-                0.68
-            ],
-            "type": "lambert"
-        },
-        {
-            "name": "shortBox",
             "albedo": [
                 0.725,
                 0.71,
@@ -96,6 +51,29 @@
     ],
     "primitives": [
         {
+            "name": "Envmap",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    1.17369
+                ],
+                "rotation": [
+                    0,
+                    -67.2614,
+                    0
+                ]
+            },
+            "bump_strength": 1,
+            "emission": "envmap.hdr",
+            "type": "infinite_sphere",
+            "sample": true,
+            "bsdf": {
+                "albedo": 1,
+                "type": "null"
+            }
+        },
+        {
             "name": "floor",
             "transform": {
                 "scale": [
@@ -113,99 +91,11 @@
             "bsdf": "floor"
         },
         {
-            "name": "ceiling",
-            "transform": {
-                "position": [
-                    0,
-                    2,
-                    0
-                ],
-                "scale": [
-                    2,
-                    4,
-                    2
-                ],
-                "rotation": [
-                    0,
-                    0,
-                    -180
-                ]
-            },
-            "type": "quad",
-            "bsdf": "ceiling"
-        },
-        {
-            "name": "backWall",
-            "transform": {
-                "position": [
-                    0,
-                    1,
-                    -1
-                ],
-                "scale": [
-                    2,
-                    4,
-                    2
-                ],
-                "rotation": [
-                    0,
-                    90,
-                    90
-                ]
-            },
-            "type": "quad",
-            "bsdf": "backWall"
-        },
-        {
-            "name": "rightWall",
-            "transform": {
-                "position": [
-                    1,
-                    1,
-                    0
-                ],
-                "scale": [
-                    2,
-                    4,
-                    2
-                ],
-                "rotation": [
-                    0,
-                    180,
-                    90
-                ]
-            },
-            "type": "quad",
-            "bsdf": "rightWall"
-        },
-        {
-            "name": "leftWall",
-            "transform": {
-                "position": [
-                    -1,
-                    1,
-                    0
-                ],
-                "scale": [
-                    2,
-                    4,
-                    2
-                ],
-                "rotation": [
-                    0,
-                    0,
-                    90
-                ]
-            },
-            "type": "quad",
-            "bsdf": "leftWall"
-        },
-        {
             "name": "light",
             "transform": {
                 "position": [
                     -0.005,
-                    1.98,
+                    5.98,
                     -0.03
                 ],
                 "scale": [
@@ -220,9 +110,9 @@
                 ]
             },
             "emission": [
-                17,
-                12,
-                4
+                218,
+                218,
+                219
             ],
             "type": "quad",
             "bsdf": "light"
@@ -231,19 +121,19 @@
     "camera": {
         "tonemap": "filmic",
         "resolution": [
-            1000,
-            563
+            1920,
+            1080
         ],
         "reconstruction_filter": "tent",
         "transform": {
             "position": [
                 0,
-                1,
-                6.8
+                5.5,
+                0
             ],
             "look_at": [
                 0,
-                1,
+                0,
                 0
             ],
             "up": [
@@ -272,7 +162,7 @@
         "enable_resume_render": false,
         "stratified_sampler": false,
         "scene_bvh": true,
-        "spp": 64,
+        "spp": 32,
         "spp_step": 16,
         "checkpoint_interval": "0",
         "timeout": "0"

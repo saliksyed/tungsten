@@ -38,7 +38,10 @@ void HeightField::fromJson(JsonPtr value, const Scene &scene)
 {
     Generator::fromJson(value, scene);
 
-    if (auto heightMap = value["heightMap"]) _heightMap = scene.fetchTexture(heightMap, TexelConversion::REQUEST_RGB);
+    if (auto heightMap = value["heightMap"]) {
+        _heightMap = scene.fetchTexture(heightMap, TexelConversion::REQUEST_RGB);
+        _heightMap->loadResources();
+    }
     if (auto primitiveCount = value["primitiveCount"]) value["primitiveCount"].get(_primitiveCount);
 }
 
@@ -64,10 +67,15 @@ std::shared_ptr<Bsdf>& HeightField::next_bsdf(const Scene& scene){
 std::shared_ptr<Primitive>& HeightField::next_primitive(const Scene& scene){
     ++_numPrimitivesSent;
     Vec2f uv = _sampler.next2D();
-    Vec3f pos = Vec3f(uv.x(), 0.0f, uv.y());
-    Vec3f scale = Vec3f(0.1f, 0.1f, 0.1f);
+    Vec3f color = (*_heightMap)[uv];
+    float h = color.x() + color.y() + color.z();
+    Vec3f pos = Vec3f(uv.x(), 0.0, uv.y());
+    Vec3f scale = Vec3f(0.01f, 0.3f * h, 0.01f);
     Mat4f rot = Mat4f::rotXYZ(Vec3f(0.0f, 0.0f, 0.0f));
-    return *new std::shared_ptr<Primitive>(new Cube(_transform*pos, scale, rot, "", _bsdf));
+    std::shared_ptr<Bsdf> col = std::make_shared<LambertBsdf>();
+    col->setAlbedo(std::make_shared<ConstantTexture>(color));
+    std::shared_ptr<Primitive>* prim = new std::shared_ptr<Primitive>(new Cube(_transform*pos, scale, rot, "", col));
+    return *prim;
 }
 
 }
